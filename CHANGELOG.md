@@ -4,6 +4,14 @@ All notable changes to the "vscode-dear-blog" extension will be documented in th
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## 0.0.3
 
-- Initial release
+Add changelog
+
+## 0.0.2
+
+Add extension icon
+
+## 0.0.1
+
+Initial release
