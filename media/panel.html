@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{styleUri}}">
+     <!-- <link rel="stylesheet" href="./style.css"> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vscode/codicons@0.0.39/dist/codicon.min.css">
+    <title>Dear Blog</title>
+</head>
+<body>
+    <div class="container">
+        <div class="button-group">
+            <button class="action-button" id="newPost">
+                <span class="codicon codicon-file-add"></span>
+                新建文章
+            </button>
+            <button class="action-button" id="preview">
+                <span class="codicon codicon-eye" id="previewIcon"></span>
+                <span id="previewText">预览博客</span>
+            </button>
+            <button class="action-button" id="publish">
+                <span class="codicon codicon-cloud"></span>
+                发布博客
+            </button>
+        </div>
+
+        <!-- 版本信息Footer -->
+        <div class="footer">
+            <div class="version-info">
+                <span>Git 版本:</span>
+                <span id="git-version" class="version-installed">检测中...</span>
+            </div>
+            <div class="version-info">
+                <span>Hugo 版本:</span>
+                <span id="hugo-version" class="version-installed">检测中...</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 与VS Code扩展通信
+        const vscode = acquireVsCodeApi();
+         let previewActive = false;
+
+        // 按钮点击事件
+        document.getElementById('newPost').addEventListener('click', () => {
+            vscode.postMessage({ command: 'newPost' });
+        });
+
+        document.getElementById('publish').addEventListener('click', () => {
+            vscode.postMessage({ command: 'publish' });
+        });
+
+        document.getElementById('preview').addEventListener('click', function() {
+            const btn = this;
+            btn.classList.add('preview-disabled');
+            btn.disabled = true;
+            vscode.postMessage({ command: 'preview' });
+        });
+
+        // 接收来自扩展的版本信息
+        window.addEventListener('message', event => {
+            const message = event.data;
+            switch (message.type) {
+                case 'versionInfo':
+                    // 更新Git版本信息
+                    const gitElement = document.getElementById('git-version');
+                    gitElement.textContent = message.gitVersion;
+                    gitElement.className = message.gitInstalled ? 'version-installed' : 'version-missing';
+
+                    // 更新Hugo版本信息
+                    const hugoElement = document.getElementById('hugo-version');
+                    hugoElement.textContent = message.hugoVersion;
+                    hugoElement.className = message.hugoInstalled ? 'version-installed' : 'version-missing';
+                    break;
+                case 'previewStatus':
+                    previewActive = !previewActive;
+                    const button = document.getElementById('preview');
+                    const icon = document.getElementById('previewIcon');
+                    const text = document.getElementById('previewText');
+
+                    if (previewActive) {
+                        // 预览运行中 - 显示停止按钮
+                        button.classList.remove('preview-disabled');
+                        button.classList.add('preview-active');
+                        button.disabled = false;
+                        icon.className = 'codicon codicon-debug-stop';
+                        text.textContent = '停止预览';
+                    } else {
+                        // 预览已停止 - 显示启动按钮
+                        button.classList.remove('preview-active', 'preview-disabled');
+                        button.disabled = false;
+                        icon.className = 'codicon codicon-eye';
+                        text.textContent = '预览网站';
+                    }
+            }
+        });
+
+        // 请求版本信息
+        vscode.postMessage({ command: 'requestVersionInfo' });
+    </script>
+</body>
+</html>

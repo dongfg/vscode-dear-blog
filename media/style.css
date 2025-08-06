@@ -1,0 +1,102 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+.container {
+    padding: 1rem;
+    min-height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+.action-button {
+    background: var(--vscode-button-background);
+    color: var(--vscode-button-foreground);
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.action-button:hover {
+    background: var(--vscode-button-hoverBackground);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.action-button:active {
+    transform: translateY(0);
+}
+
+.preview-disabled {
+    background: var(--vscode-descriptionForeground);
+    pointer-events: none;
+}
+
+.preview-active {
+    background: var(--vscode-errorForeground);
+    color: var(--vscode-button-foreground);
+}
+
+.preview-active:hover {
+    background: var(--vscode-errorForeground);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.preview-active:active {
+    transform: translateY(0);
+}
+
+.codicon {
+    font-family: "Codicons";
+    font-size: 1.3em;
+    width: 1.2em;
+    text-align: center;
+}
+
+/* Footer样式 */
+.footer {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--vscode-editorGroupHeader-tabsBorder);
+    font-size: 0.85rem;
+    color: var(--vscode-descriptionForeground);
+}
+
+.version-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.3rem;
+}
+
+.version-info span:first-child {
+    opacity: 0.8;
+}
+
+.version-installed {
+    color: var(--vscode-terminal-ansiGreen);
+}
+
+.version-missing {
+    color: var(--vscode-terminal-ansiYellow);
+}
