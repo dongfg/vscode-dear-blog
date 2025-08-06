@@ -1,0 +1,34 @@
+name: CI
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: prepare
+        run: |
+          npm install -g pnpm @vscode/vsce ovsx
+          pnpm install
+          pnpm vscode:prepublish
+          vsce package
+      - name: publish vscode extension
+        run: |
+          vsce publish
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
+      - name: publish vscodium extension
+        run: |
+          VERSION=$(git describe --tags --abbrev=0)
+          VSIX_FILE="vscode-dear-blog-${VERSION}.vsix"
+          ovsx publish "$VSIX_FILE"
+        env:
+          OVSX_PAT: ${{ secrets.OVSX_PAT }}
