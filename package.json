@@ -1,8 +1,9 @@
 {
   "name": "vscode-dear-blog",
   "displayName": "Dear Blog",
+  "icon": "icon.png",
   "description": "For my dearest wife, with all my love.",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "engines": {
     "vscode": "^1.102.0"
   },
