@@ -3,9 +3,9 @@
   "displayName": "Dear Blog",
   "icon": "icon.png",
   "description": "For my dearest wife, with all my love.",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "engines": {
-    "vscode": "^1.102.0"
+    "vscode": "^1.100.0"
   },
   "publisher": "dongfg",
   "repository": "https://github.com/dongfg/vscode-dear-blog",
@@ -90,7 +90,7 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.102.0",
+    "@types/vscode": "^1.100.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "20.x",
     "@typescript-eslint/eslint-plugin": "^8.31.1",
