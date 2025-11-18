@@ -53,8 +53,8 @@ async function startPreview(): Promise<boolean> {
 
         // 构建命令（使用PowerShell在Windows上执行，确保环境正确）
         const command = os.platform() === 'win32'
-            ? 'pwsh -NoProfile -Command "hugo serve -D -F"'
-            : 'hugo serve -D -F';
+            ? 'pwsh -NoProfile -Command "hugo serve --bind 0.0.0.0 -D -F"'
+            : 'hugo serve --bind 0.0.0.0 -D -F';
 
         // 启动预览进程
         previewProcess = cp.exec(command, { cwd: workspaceRoot, shell: getShellPath() });
